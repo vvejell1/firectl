@@ -17,6 +17,7 @@ import (
 	"context"
 	"os"
 	"os/exec"
+	"runtime"
 	"syscall"
 	"testing"
 	"time"
@@ -71,6 +72,9 @@ func TestFireCTL(t *testing.T) {
 		kernelImagePath,
 		"--root-drive",
 		rootDrivePath,
+	}
+	if runtime.GOARCH == "arm64" {
+		firectlArgs = append(firectlArgs, "--disable-smt")
 	}
 	cmd := exec.CommandContext(ctlCtx, firectlName, firectlArgs...)
 	if err := cmd.Start(); err != nil {
