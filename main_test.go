@@ -74,7 +74,7 @@ func TestFireCTL(t *testing.T) {
 		rootDrivePath,
 	}
 	if runtime.GOARCH == "arm64" {
-		firectlArgs = append(firectlArgs, "--disable-smt")
+		firectlArgs = append(firectlArgs, "--disable-smt") // Disable simultaneous multithreading is supported by aarch64
 	}
 	cmd := exec.CommandContext(ctlCtx, firectlName, firectlArgs...)
 	if err := cmd.Start(); err != nil {
